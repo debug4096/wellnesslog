@@ -9,9 +9,6 @@ use Illuminate\Database\Seeder;
 
 class DailyEntrySeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
         $user = User::factory()->create([
@@ -20,8 +17,11 @@ class DailyEntrySeeder extends Seeder
 
         DailyEntry::factory()
             ->count(10)
-            ->for($user)->sequence(fn(Sequence $index) => [
-                'date' => now()->subDays($index->index)->format('Y-m-d'),
+            ->for($user)
+            ->sequence(fn(Sequence $index) => [
+                'date' => now()
+                    ->subDays($index->index)
+                    ->format('Y-m-d'),
             ])
             ->create();
     }

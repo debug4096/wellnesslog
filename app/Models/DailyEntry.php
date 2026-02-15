@@ -4,13 +4,14 @@ namespace App\Models;
 
 use App\Enums\EnergyLevel;
 use App\Enums\MoodLevel;
+use Database\Factories\DailyEntryFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class DailyEntry extends Model
 {
-    /** @use HasFactory<\Database\Factories\DailyEntryFactory> */
+    /** @use HasFactory<DailyEntryFactory> */
     use HasFactory;
 
     protected $fillable = [
