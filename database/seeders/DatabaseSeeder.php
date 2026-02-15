@@ -10,6 +10,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             DailyEntrySeeder::class,
+            MedicationSeeder::class,
         ]);
     }
 }
