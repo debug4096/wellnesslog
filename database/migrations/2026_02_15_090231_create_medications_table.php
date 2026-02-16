@@ -12,7 +12,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->string('name');
-            $table->decimal('dosage', 8, 2);
+            $table->decimal('dosage', 6, 3);
             $table->string('unit', 30);
             $table->string('frequency', 30);
             $table->softDeletes();
