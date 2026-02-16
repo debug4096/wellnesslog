@@ -8,6 +8,7 @@ use Database\Factories\MedicationFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Medication extends Model
@@ -26,6 +27,11 @@ class Medication extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function medicationLogs(): HasMany
+    {
+        return $this->hasMany(MedicationLog::class);
     }
 
     protected function casts(): array
