@@ -51,7 +51,7 @@ class Medication extends Model
     protected function casts(): array
     {
         return [
-            'dosage'    => 'decimal:2',
+            'dosage'    => 'decimal:3',
             'unit'      => MedicationUnit::class,
             'frequency' => MedicationFrequency::class,
         ];
