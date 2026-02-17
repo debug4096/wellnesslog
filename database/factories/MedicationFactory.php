@@ -43,4 +43,11 @@ class MedicationFactory extends Factory
             'frequency' => MedicationFrequency::AsNeeded,
         ]);
     }
+
+    public function trashed(): static
+    {
+        return $this->state(fn() => [
+            'deleted_at' => now()->subDays(30),
+        ]);
+    }
 }

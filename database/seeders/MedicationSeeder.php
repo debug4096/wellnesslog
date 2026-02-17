@@ -21,8 +21,7 @@ class MedicationSeeder extends Seeder
         Medication::factory()
             ->count(2)
             ->for($user)
-            ->create([
-                'deleted_at' => now()->subDays(30),
-            ]);
+            ->trashed()
+            ->create();
     }
 }
