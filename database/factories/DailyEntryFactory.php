@@ -20,7 +20,7 @@ class DailyEntryFactory extends Factory
     {
         return [
             'user_id'       => User::factory(),
-            'date'          => fake()->unique()->dateTimeBetween('-30 days')->format('Y-m-d'),
+            'date'          => fake()->dateTimeBetween('-30 days')->format('Y-m-d'),
             'mood_level'    => fake()->numberBetween(1, 10),
             'energy_level'  => fake()->numberBetween(1, 10),
             'sleep_minutes' => fake()->numberBetween(60, 540),
