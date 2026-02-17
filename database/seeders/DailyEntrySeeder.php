@@ -11,9 +11,8 @@ class DailyEntrySeeder extends Seeder
 {
     public function run(): void
     {
-        $user = User::factory()->create([
-            'email' => 'demo@wellnesslog.test',
-        ]);
+        $user = User::where('email', 'demo@wellnesslog.test')
+            ->firstOrFail();
 
         DailyEntry::factory()
             ->count(10)
