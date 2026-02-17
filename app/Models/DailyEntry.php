@@ -15,7 +15,6 @@ class DailyEntry extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
         'date',
         'mood_level',
         'energy_level',

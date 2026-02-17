@@ -13,8 +13,6 @@ class MedicationLog extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
-        'medication_id',
         'taken_at',
         'dosage',
         'notes',
