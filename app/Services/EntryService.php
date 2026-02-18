@@ -1,0 +1,35 @@
+<?php
+
+namespace App\Services;
+
+use App\Models\DailyEntry;
+use App\Models\User;
+use Illuminate\Support\Collection;
+
+class EntryService
+{
+    public function createEntry(User $user, array $data): DailyEntry
+    {
+        return $user->dailyEntries()->create($data);
+    }
+
+    public function updateEntry(DailyEntry $entry, array $data): DailyEntry
+    {
+        $entry->update($data);
+        return $entry->fresh();
+    }
+
+    public function deleteEntry(DailyEntry $entry): void
+    {
+        $entry->delete();
+    }
+
+    public function getEntriesForPeriod(User $user, ?string $dateFrom, ?string $dateTo): Collection
+    {
+        return $user->dailyEntries()
+            ->when($dateFrom, fn($q) => $q->where('date', '>=', $dateFrom))
+            ->when($dateTo, fn($q) => $q->where('date', '<=', $dateTo))
+            ->orderBy('date', 'desc')
+            ->get();
+    }
+}
