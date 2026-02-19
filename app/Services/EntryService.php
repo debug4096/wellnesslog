@@ -2,11 +2,12 @@
 
 namespace App\Services;
 
+use App\Contracts\EntryServiceInterface;
 use App\Models\DailyEntry;
 use App\Models\User;
 use Illuminate\Support\Collection;
 
-class EntryService
+class EntryService implements EntryServiceInterface
 {
     public function createEntry(User $user, array $data): DailyEntry
     {

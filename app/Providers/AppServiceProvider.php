@@ -2,23 +2,24 @@
 
 namespace App\Providers;
 
+use App\Contracts\EntryServiceInterface;
+use App\Contracts\MedicationServiceInterface;
+use App\Contracts\StatisticsServiceInterface;
+use App\Services\EntryService;
+use App\Services\MedicationService;
+use App\Services\StatisticsService;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     */
     public function register(): void
     {
-        //
+        $this->app->bind(EntryServiceInterface::class, EntryService::class);
+        $this->app->bind(MedicationServiceInterface::class, MedicationService::class);
+        $this->app->bind(StatisticsServiceInterface::class, StatisticsService::class);
     }
 
-    /**
-     * Bootstrap any application services.
-     */
     public function boot(): void
     {
-        //
     }
 }

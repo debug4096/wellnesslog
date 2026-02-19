@@ -2,13 +2,15 @@
 
 namespace App\Services;
 
+use App\Contracts\EntryServiceInterface;
+use App\Contracts\StatisticsServiceInterface;
 use App\Models\User;
 use Illuminate\Support\Collection;
 
-class StatisticsService
+class StatisticsService implements StatisticsServiceInterface
 {
     public function __construct(
-        private readonly EntryService $entryService
+        private readonly EntryServiceInterface $entryService
     ) {
     }
 

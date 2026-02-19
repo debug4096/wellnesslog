@@ -2,12 +2,13 @@
 
 namespace App\Services;
 
+use App\Contracts\MedicationServiceInterface;
 use App\Models\Medication;
 use App\Models\MedicationLog;
 use App\Models\User;
 use Illuminate\Support\Collection;
 
-class MedicationService
+class MedicationService implements MedicationServiceInterface
 {
     public function getUserMedications(User $user): Collection
     {
