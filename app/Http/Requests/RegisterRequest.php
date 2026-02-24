@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class RegisterRequest extends FormRequest
@@ -12,9 +11,6 @@ class RegisterRequest extends FormRequest
         return true;
     }
 
-    /**
-     * @return array<string, ValidationRule|array|string>
-     */
     public function rules(): array
     {
         return [
