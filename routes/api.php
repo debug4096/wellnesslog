@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DailyEntryController;
+use App\Http\Controllers\MedicationController;
 use Illuminate\Support\Facades\Route;
 
 Route::post('register', [AuthController::class, 'register']);
@@ -12,4 +13,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('me', [AuthController::class, 'me']);
 
     Route::apiResource('entries', DailyEntryController::class);
+    Route::apiResource('medications', MedicationController::class);
 });
