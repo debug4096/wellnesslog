@@ -18,7 +18,7 @@ class MedicationLogSeeder extends Seeder
             MedicationLog::factory()
                 ->count(20)
                 ->for($medication)
-                ->create(['user_id' => $user->id]);
+                ->create();
         }
     }
 }

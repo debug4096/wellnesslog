@@ -18,11 +18,6 @@ class MedicationLog extends Model
         'notes',
     ];
 
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
-
     public function medication(): BelongsTo
     {
         return $this->belongsTo(Medication::class);

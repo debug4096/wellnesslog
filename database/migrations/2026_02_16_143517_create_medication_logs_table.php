@@ -9,7 +9,6 @@ return new class extends Migration {
     {
         Schema::create('medication_logs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('medication_id')->constrained()->cascadeOnDelete();
             $table->timestamp('taken_at');
             $table->decimal('dosage', 6, 3)->nullable();
