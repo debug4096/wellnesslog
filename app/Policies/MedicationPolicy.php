@@ -12,7 +12,22 @@ class MedicationPolicy
         return $user->id === $medication->user_id;
     }
 
+    public function viewLogs(User $user, Medication $medication): bool
+    {
+        return $user->id === $medication->user_id;
+    }
+
+    public function create(User $user): bool
+    {
+        return true;
+    }
+
     public function update(User $user, Medication $medication): bool
+    {
+        return $user->id === $medication->user_id;
+    }
+
+    public function log(User $user, Medication $medication): bool
     {
         return $user->id === $medication->user_id;
     }

@@ -37,19 +37,13 @@ class DailyEntryController extends Controller
 
     public function show(Request $request, DailyEntry $entry): DailyEntryResource
     {
-        if ($request->user()->id !== $entry->user_id) {
-            abort(403);
-        }
+        $this->authorize('view', $entry);
 
         return new DailyEntryResource($entry);
     }
 
     public function update(UpdateDailyEntryRequest $request, DailyEntry $entry): DailyEntryResource
     {
-        if ($request->user()->id !== $entry->user_id) {
-            abort(403);
-        }
-
         $entry->update($request->validated());
 
         return new DailyEntryResource($entry);
@@ -57,9 +51,7 @@ class DailyEntryController extends Controller
 
     public function destroy(Request $request, DailyEntry $entry): JsonResponse
     {
-        if ($request->user()->id !== $entry->user_id) {
-            abort(403);
-        }
+        $this->authorize('delete', $entry);
 
         $entry->delete();
 

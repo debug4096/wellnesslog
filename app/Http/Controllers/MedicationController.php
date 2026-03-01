@@ -34,19 +34,13 @@ class MedicationController extends Controller
 
     public function show(Request $request, Medication $medication): MedicationResource
     {
-        if ($request->user()->id !== $medication->user_id) {
-            abort(403);
-        }
+        $this->authorize('view', $medication);
 
         return new MedicationResource($medication);
     }
 
     public function update(UpdateMedicationRequest $request, Medication $medication): MedicationResource
     {
-        if ($request->user()->id !== $medication->user_id) {
-            abort(403);
-        }
-
         $medication->update($request->validated());
 
         return new MedicationResource($medication);
@@ -54,9 +48,7 @@ class MedicationController extends Controller
 
     public function destroy(Request $request, Medication $medication): JsonResponse
     {
-        if ($request->user()->id !== $medication->user_id) {
-            abort(403);
-        }
+        $this->authorize('delete', $medication);
 
         $medication->delete();
 

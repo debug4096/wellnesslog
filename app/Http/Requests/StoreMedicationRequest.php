@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Enums\MedicationFrequency;
 use App\Enums\MedicationUnit;
+use App\Models\Medication;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Enum;
 
@@ -11,7 +12,7 @@ class StoreMedicationRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return true;
+        return $this->user()->can('create', Medication::class);
     }
 
     public function rules(): array
