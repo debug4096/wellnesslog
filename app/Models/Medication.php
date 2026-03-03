@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use App\Enums\MedicationFrequency;
@@ -27,14 +29,14 @@ class Medication extends Model
     protected function name(): Attribute
     {
         return Attribute::make(
-            set: fn(string $value) => mb_strtolower($value)
+            set: fn (string $value) => mb_strtolower($value),
         );
     }
 
     protected function formattedDosage(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->dosage . ' ' . $this->unit->value
+            get: fn () => $this->dosage.' '.$this->unit->value,
         );
     }
 

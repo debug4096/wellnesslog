@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
 use App\Enums\MedicationFrequency;
@@ -16,8 +18,8 @@ class MedicationFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id'   => User::factory(),
-            'name'      => fake()->randomElement([
+            'user_id' => User::factory(),
+            'name'    => fake()->randomElement([
                 'Ibuprofen',
                 'Aspirin',
                 'Paracetamol',
@@ -39,14 +41,14 @@ class MedicationFactory extends Factory
 
     public function asNeeded(): static
     {
-        return $this->state(fn() => [
+        return $this->state(fn () => [
             'frequency' => MedicationFrequency::AsNeeded,
         ]);
     }
 
     public function trashed(): static
     {
-        return $this->state(fn() => [
+        return $this->state(fn () => [
             'deleted_at' => now()->subDays(30),
         ]);
     }

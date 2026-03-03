@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Requests;
 
 use App\Enums\EnergyLevel;
@@ -18,7 +20,7 @@ class UpdateDailyEntryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'date'          => [
+            'date' => [
                 'sometimes',
                 'date',
                 Rule::unique('daily_entries')

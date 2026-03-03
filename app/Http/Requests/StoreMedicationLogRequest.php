@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -19,8 +21,8 @@ class StoreMedicationLogRequest extends FormRequest
                 'date',
                 'before_or_equal:today',
             ],
-            'dosage'   => ['sometimes', 'numeric', 'min:0.001', 'max:999.999'],
-            'notes'    => ['sometimes', 'string', 'max:5000'],
+            'dosage' => ['sometimes', 'numeric', 'min:0.001', 'max:999.999'],
+            'notes'  => ['sometimes', 'string', 'max:5000'],
         ];
     }
 }

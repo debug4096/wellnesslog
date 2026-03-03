@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
@@ -30,7 +32,7 @@ class AuthController extends Controller
     {
         $user = User::where('email', $request->validated('email'))->first();
 
-        if (!$user || !Hash::check($request->validated('password'), $user->password)) {
+        if (! $user || ! Hash::check($request->validated('password'), $user->password)) {
             return response()->json([
                 'message' => 'Invalid credentials.',
             ], 401);

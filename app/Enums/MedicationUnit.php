@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Enums;
 
 enum MedicationUnit: string
@@ -16,14 +18,14 @@ enum MedicationUnit: string
     public function label(): string
     {
         return match ($this) {
-            self::Tablet => 'Tablet',
-            self::Drop => 'Drop',
-            self::Capsule => 'Capsule',
-            self::Ml => 'Milliliter',
-            self::Mg => 'Milligram',
+            self::Tablet    => 'Tablet',
+            self::Drop      => 'Drop',
+            self::Capsule   => 'Capsule',
+            self::Ml        => 'Milliliter',
+            self::Mg        => 'Milligram',
             self::Injection => 'Injection',
-            self::Spray => 'Spray',
-            self::Patch => 'Patch',
+            self::Spray     => 'Spray',
+            self::Patch     => 'Patch',
         };
     }
 }

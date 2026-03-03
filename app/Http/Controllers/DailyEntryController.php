@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreDailyEntryRequest;
@@ -16,8 +18,8 @@ class DailyEntryController extends Controller
     {
         $entries = $request->user()
             ->dailyEntries()
-            ->when($request->query('date_from'), fn($q, $date) => $q->dateFrom($date))
-            ->when($request->query('date_to'), fn($q, $date) => $q->dateTo($date))
+            ->when($request->query('date_from'), fn ($q, $date) => $q->dateFrom($date))
+            ->when($request->query('date_to'), fn ($q, $date) => $q->dateTo($date))
             ->orderByDesc('date')
             ->paginate(15);
 

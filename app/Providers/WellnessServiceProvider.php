@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Providers;
 
 use App\Contracts\EntryServiceInterface;
@@ -19,7 +21,5 @@ class WellnessServiceProvider extends ServiceProvider
         $this->app->bind(StatisticsServiceInterface::class, StatisticsService::class);
     }
 
-    public function boot(): void
-    {
-    }
+    public function boot(): void {}
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Enums;
 
 enum MedicationFrequency: string
@@ -14,12 +16,12 @@ enum MedicationFrequency: string
     public function label(): string
     {
         return match ($this) {
-            self::OnceDaily => 'Once a day',
-            self::TwiceDaily => 'Twice a day',
+            self::OnceDaily       => 'Once a day',
+            self::TwiceDaily      => 'Twice a day',
             self::ThreeTimesDaily => 'Three times a day',
-            self::EveryOtherDay => 'Every other day',
-            self::Weekly => 'Once a week',
-            self::AsNeeded => 'As needed',
+            self::EveryOtherDay   => 'Every other day',
+            self::Weekly          => 'Once a week',
+            self::AsNeeded        => 'As needed',
         };
     }
 }

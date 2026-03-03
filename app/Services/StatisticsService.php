@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services;
 
 use App\Contracts\EntryServiceInterface;
@@ -10,9 +12,8 @@ use Illuminate\Support\Collection;
 class StatisticsService implements StatisticsServiceInterface
 {
     public function __construct(
-        private readonly EntryServiceInterface $entryService
-    ) {
-    }
+        private readonly EntryServiceInterface $entryService,
+    ) {}
 
     public function getStatisticsForPeriod(User $user, ?string $dateFrom, ?string $dateTo): array
     {
@@ -29,7 +30,7 @@ class StatisticsService implements StatisticsServiceInterface
     {
         $values = $entries
             ->pluck($column)
-            ->filter(fn($v) => $v !== null)
+            ->filter(fn ($v) => $v !== null)
             ->values()
             ->toArray();
 
@@ -39,7 +40,7 @@ class StatisticsService implements StatisticsServiceInterface
 
         sort($values);
         $count = count($values);
-        $mid = (int)($count / 2);
+        $mid = (int) ($count / 2);
 
         return $count % 2 === 0
             ? ($values[$mid - 1] + $values[$mid]) / 2

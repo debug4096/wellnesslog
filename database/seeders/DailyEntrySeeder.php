@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
 use App\Models\DailyEntry;
@@ -17,7 +19,7 @@ class DailyEntrySeeder extends Seeder
         DailyEntry::factory()
             ->count(10)
             ->for($user)
-            ->sequence(fn(Sequence $index) => [
+            ->sequence(fn (Sequence $index) => [
                 'date' => now()
                     ->subDays($index->index)
                     ->format('Y-m-d'),
