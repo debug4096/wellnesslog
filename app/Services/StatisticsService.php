@@ -4,46 +4,44 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use App\Contracts\EntryServiceInterface;
 use App\Contracts\StatisticsServiceInterface;
 use App\Models\User;
-use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class StatisticsService implements StatisticsServiceInterface
 {
-    public function __construct(
-        private readonly EntryServiceInterface $entryService,
-    ) {}
-
+    /**
+     * @return array{median_mood_level: float, median_energy_level: float, median_sleep_minutes: float}
+     */
     public function getStatisticsForPeriod(User $user, ?string $dateFrom, ?string $dateTo): array
     {
-        $entries = $this->entryService->getEntriesForPeriod($user, $dateFrom, $dateTo);
+        $query = $user->dailyEntries()
+            ->when($dateFrom, fn ($query, $date) => $query->where('entry_date', '>=', $date))
+            ->when($dateTo, fn ($query, $date) => $query->where('entry_date', '<=', $date));
 
         return [
-            'median_mood_level'    => $this->calcMedianValue($entries, 'mood_level'),
-            'median_energy_level'  => $this->calcMedianValue($entries, 'energy_level'),
-            'median_sleep_minutes' => $this->calcMedianValue($entries, 'sleep_minutes'),
+            'median_mood_level'    => $this->calcMedianValue(clone $query, 'mood_level'),
+            'median_energy_level'  => $this->calcMedianValue(clone $query, 'energy_level'),
+            'median_sleep_minutes' => $this->calcMedianValue(clone $query, 'sleep_minutes'),
         ];
     }
 
-    private function calcMedianValue(Collection $entries, string $column): float
+    private function calcMedianValue(HasMany $query, string $column): float
     {
-        $values = $entries
-            ->pluck($column)
-            ->filter(fn ($v) => $v !== null)
-            ->values()
-            ->toArray();
+        $values = $query
+            ->whereNotNull($column)
+            ->orderBy($column)
+            ->pluck($column);
 
-        if (empty($values)) {
-            return 0;
+        if ($values->isEmpty()) {
+            return 0.0;
         }
 
-        sort($values);
-        $count = count($values);
+        $count = $values->count();
         $mid = (int) ($count / 2);
 
-        return $count % 2 === 0
+        return (float) ($count % 2 === 0
             ? ($values[$mid - 1] + $values[$mid]) / 2
-            : $values[$mid];
+            : $values[$mid]);
     }
 }
