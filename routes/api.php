@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DailyEntryController;
 use App\Http\Controllers\MedicationController;
 use App\Http\Controllers\MedicationLogController;
+use App\Http\Controllers\StatisticsController;
 use Illuminate\Support\Facades\Route;
 
 Route::post('register', [AuthController::class, 'register']);
@@ -20,4 +21,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('medications/{medication}/logs', [MedicationLogController::class, 'index']);
     Route::post('medications/{medication}/logs', [MedicationLogController::class, 'store']);
+
+    Route::get('statistics', [StatisticsController::class, 'index']);
 });
