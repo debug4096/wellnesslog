@@ -16,8 +16,16 @@ class GetStatisticsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'date_from' => ['sometimes', 'date', 'before_or_equal:date_to'],
-            'date_to'   => ['sometimes', 'date', 'after_or_equal:date_from'],
+            'date_from' => [
+                'sometimes',
+                'date',
+                $this->has('date_to') ? 'before_or_equal:date_to' : '',
+            ],
+            'date_to' => [
+                'sometimes',
+                'date',
+                $this->has('date_from') ? 'after_or_equal:date_from' : '',
+            ],
         ];
     }
 }
