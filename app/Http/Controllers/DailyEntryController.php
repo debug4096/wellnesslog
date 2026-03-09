@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\GetDailyEntryRequest;
 use App\Http\Requests\StoreDailyEntryRequest;
 use App\Http\Requests\UpdateDailyEntryRequest;
 use App\Http\Resources\DailyEntryResource;
@@ -14,12 +15,14 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class DailyEntryController extends Controller
 {
-    public function index(Request $request): AnonymousResourceCollection
+    public function index(GetDailyEntryRequest $request): AnonymousResourceCollection
     {
+        $validated = $request->validated();
+
         $entries = $request->user()
             ->dailyEntries()
-            ->when($request->query('date_from'), fn ($q, $date) => $q->dateFrom($date))
-            ->when($request->query('date_to'), fn ($q, $date) => $q->dateTo($date))
+            ->when($validated['date_from'] ?? null, fn ($q, $date) => $q->dateFrom($date))
+            ->when($validated['date_to'] ?? null, fn ($q, $date) => $q->dateTo($date))
             ->orderByDesc('date')
             ->paginate(15);
 
