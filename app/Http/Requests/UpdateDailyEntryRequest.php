@@ -29,8 +29,8 @@ class UpdateDailyEntryRequest extends FormRequest
             ],
             'mood_level'    => ['sometimes', new Enum(MoodLevel::class)],
             'energy_level'  => ['sometimes', new Enum(EnergyLevel::class)],
-            'sleep_minutes' => ['nullable', 'integer', 'min:0', 'max:1440'],
-            'notes'         => ['nullable', 'string', 'max:5000'],
+            'sleep_minutes' => ['sometimes', 'nullable', 'integer', 'min:0', 'max:1440'],
+            'notes'         => ['sometimes', 'nullable', 'string', 'max:5000'],
         ];
     }
 }
