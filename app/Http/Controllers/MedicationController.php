@@ -18,6 +18,7 @@ class MedicationController extends Controller
     {
         $medications = $request->user()
             ->medications()
+            ->orderByDesc('created_at')
             ->paginate(15);
 
         return MedicationResource::collection($medications);

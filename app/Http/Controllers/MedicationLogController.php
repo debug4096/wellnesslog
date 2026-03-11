@@ -17,6 +17,7 @@ class MedicationLogController extends Controller
         $this->authorize('viewLogs', $medication);
 
         $medicationLogs = $medication->medicationLogs()
+            ->orderByDesc('taken_at')
             ->paginate(15);
 
         return MedicationLogResource::collection($medicationLogs);
