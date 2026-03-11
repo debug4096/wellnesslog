@@ -9,6 +9,11 @@ use App\Models\User;
 
 class MedicationPolicy
 {
+    public function viewAny(User $user): bool
+    {
+        return true;
+    }
+
     public function view(User $user, Medication $medication): bool
     {
         return $user->id === $medication->user_id;

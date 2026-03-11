@@ -14,7 +14,7 @@ class UpdateDailyEntryRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return $this->user()->can('update', $this->route('entry'));
+        return true;
     }
 
     public function rules(): array
@@ -25,7 +25,7 @@ class UpdateDailyEntryRequest extends FormRequest
                 'date',
                 Rule::unique('daily_entries')
                     ->where('user_id', $this->user()->id)
-                    ->ignore($this->route('entry')),
+                    ->ignore($this->route('entry')->id),
             ],
             'mood_level'    => ['sometimes', new Enum(MoodLevel::class)],
             'energy_level'  => ['sometimes', new Enum(EnergyLevel::class)],

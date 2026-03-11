@@ -9,6 +9,11 @@ use App\Models\User;
 
 class DailyEntryPolicy
 {
+    public function viewAny(User $user): bool
+    {
+        return true;
+    }
+
     public function view(User $user, DailyEntry $dailyEntry): bool
     {
         return $user->id === $dailyEntry->user_id;

@@ -10,13 +10,15 @@ use App\Http\Requests\UpdateDailyEntryRequest;
 use App\Http\Resources\DailyEntryResource;
 use App\Models\DailyEntry;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Support\Facades\Gate;
 
 class DailyEntryController extends Controller
 {
     public function index(GetDailyEntryRequest $request): AnonymousResourceCollection
     {
+        Gate::authorize('viewAny', DailyEntry::class);
+
         $validated = $request->validated();
 
         $entries = $request->user()
@@ -31,6 +33,8 @@ class DailyEntryController extends Controller
 
     public function store(StoreDailyEntryRequest $request): JsonResponse
     {
+        Gate::authorize('create', DailyEntry::class);
+
         $entry = $request->user()
             ->dailyEntries()
             ->create($request->validated());
@@ -40,23 +44,25 @@ class DailyEntryController extends Controller
             ->setStatusCode(201);
     }
 
-    public function show(Request $request, DailyEntry $entry): DailyEntryResource
+    public function show(DailyEntry $entry): DailyEntryResource
     {
-        $this->authorize('view', $entry);
+        Gate::authorize('view', $entry);
 
         return new DailyEntryResource($entry);
     }
 
     public function update(UpdateDailyEntryRequest $request, DailyEntry $entry): DailyEntryResource
     {
+        Gate::authorize('update', $entry);
+
         $entry->update($request->validated());
 
         return new DailyEntryResource($entry);
     }
 
-    public function destroy(Request $request, DailyEntry $entry): JsonResponse
+    public function destroy(DailyEntry $entry): JsonResponse
     {
-        $this->authorize('delete', $entry);
+        Gate::authorize('delete', $entry);
 
         $entry->delete();
 

@@ -10,7 +10,7 @@ class StoreMedicationLogRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return $this->user()->can('log', $this->route('medication'));
+        return true;
     }
 
     public function rules(): array

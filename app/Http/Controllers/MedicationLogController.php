@@ -9,12 +9,13 @@ use App\Http\Resources\MedicationLogResource;
 use App\Models\Medication;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Support\Facades\Gate;
 
 class MedicationLogController extends Controller
 {
     public function index(Medication $medication): AnonymousResourceCollection
     {
-        $this->authorize('viewLogs', $medication);
+        Gate::authorize('viewLogs', $medication);
 
         $medicationLogs = $medication->medicationLogs()
             ->orderByDesc('taken_at')
@@ -25,6 +26,8 @@ class MedicationLogController extends Controller
 
     public function store(StoreMedicationLogRequest $request, Medication $medication): JsonResponse
     {
+        Gate::authorize('log', $medication);
+
         $medicationLog = $medication->medicationLogs()
             ->create($request->validated());
 

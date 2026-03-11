@@ -6,7 +6,6 @@ namespace App\Http\Requests;
 
 use App\Enums\EnergyLevel;
 use App\Enums\MoodLevel;
-use App\Models\DailyEntry;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Enum;
@@ -15,7 +14,7 @@ class StoreDailyEntryRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return $this->user()->can('create', DailyEntry::class);
+        return true;
     }
 
     public function rules(): array
