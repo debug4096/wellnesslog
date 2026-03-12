@@ -21,7 +21,7 @@ class MedicationLogResource extends JsonResource
         return [
             'id'            => $this->id,
             'medication_id' => $this->medication_id,
-            'taken_at'      => $this->taken_at->format('Y-m-d'),
+            'taken_at'      => $this->taken_at->toISOString(),
             'dosage'        => $this->dosage,
             'notes'         => $this->notes,
             'created_at'    => $this->created_at->toISOString(),
