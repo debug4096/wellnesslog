@@ -33,9 +33,10 @@ class MedicationFactory extends Factory
                 'Sertraline',
                 'Lisinopril',
             ]),
-            'dosage'    => fake()->randomElement([0.5, 1, 2, 5, 10, 25, 50, 100, 200, 400, 500]),
-            'unit'      => fake()->randomElement(MedicationUnit::cases()),
-            'frequency' => fake()->randomElement(MedicationFrequency::cases()),
+            'dosage'        => fake()->randomElement([0.5, 1, 2, 5, 10, 25, 50, 100, 200, 400, 500]),
+            'unit'          => fake()->randomElement(MedicationUnit::cases()),
+            'frequency'     => fake()->randomElement(MedicationFrequency::cases()),
+            'reminder_time' => fake()->time('H:i'),
         ];
     }
 

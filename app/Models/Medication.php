@@ -23,6 +23,7 @@ class Medication extends Model
         'dosage',
         'unit',
         'frequency',
+        'reminder_time',
     ];
 
     public function user(): BelongsTo

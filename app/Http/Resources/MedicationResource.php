@@ -19,14 +19,15 @@ class MedicationResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id'          => $this->id,
-            'name'        => $this->name,
-            'dosage'      => $this->dosage,
-            'unit'        => $this->unit->value,
-            'frequency'   => $this->frequency->value,
-            'is_archived' => $this->trashed(),
-            'created_at'  => $this->created_at->toISOString(),
-            'updated_at'  => $this->updated_at->toISOString(),
+            'id'            => $this->id,
+            'name'          => $this->name,
+            'dosage'        => $this->dosage,
+            'unit'          => $this->unit->value,
+            'frequency'     => $this->frequency->value,
+            'reminder_time' => $this->reminder_time,
+            'is_archived'   => $this->trashed(),
+            'created_at'    => $this->created_at->toISOString(),
+            'updated_at'    => $this->updated_at->toISOString(),
         ];
     }
 }

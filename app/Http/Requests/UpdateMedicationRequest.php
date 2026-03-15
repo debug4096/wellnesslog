@@ -19,10 +19,11 @@ class UpdateMedicationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'      => ['sometimes', 'string', 'min:3', 'max:100'],
-            'dosage'    => ['sometimes', 'numeric', 'min:0.001', 'max:999.999'],
-            'unit'      => ['sometimes', new Enum(MedicationUnit::class)],
-            'frequency' => ['sometimes', new Enum(MedicationFrequency::class)],
+            'name'          => ['sometimes', 'string', 'min:3', 'max:100'],
+            'dosage'        => ['sometimes', 'numeric', 'min:0.001', 'max:999.999'],
+            'unit'          => ['sometimes', new Enum(MedicationUnit::class)],
+            'frequency'     => ['sometimes', new Enum(MedicationFrequency::class)],
+            'reminder_time' => ['sometimes', 'nullable', 'string', 'date_format:H:i'],
         ];
     }
 }

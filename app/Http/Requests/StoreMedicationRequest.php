@@ -19,10 +19,11 @@ class StoreMedicationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'      => ['required', 'string', 'min:3', 'max:100'],
-            'dosage'    => ['required', 'numeric', 'min:0.001', 'max:999.999'],
-            'unit'      => ['required', new Enum(MedicationUnit::class)],
-            'frequency' => ['required', new Enum(MedicationFrequency::class)],
+            'name'          => ['required', 'string', 'min:3', 'max:100'],
+            'dosage'        => ['required', 'numeric', 'min:0.001', 'max:999.999'],
+            'unit'          => ['required', new Enum(MedicationUnit::class)],
+            'frequency'     => ['required', new Enum(MedicationFrequency::class)],
+            'reminder_time' => ['nullable', 'string', 'date_format:H:i'],
         ];
     }
 }
