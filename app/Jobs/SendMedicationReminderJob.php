@@ -21,12 +21,13 @@ class SendMedicationReminderJob implements ShouldQueue
     public function __construct(
         #[WithoutRelations]
         private readonly User $user,
+        private readonly string $reminderTime,
     ) {}
 
     public function handle(): void
     {
         $medications = $this->user->medications()
-            ->where('reminder_time', now()->format('H:i'))
+            ->where('reminder_time', $this->reminderTime)
             ->get();
 
         foreach ($medications as $medication) {
