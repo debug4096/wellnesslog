@@ -19,8 +19,7 @@ class AuthenticationTest extends TestCase
             'email'                 => 'johndoe@wellnesslog.test',
             'password'              => 'password',
             'password_confirmation' => 'password',
-        ])
-            ->assertStatus(201)
+        ])->assertStatus(201)
             ->assertExactJsonStructure(['token']);
 
         $this->assertDatabaseHas('users', [
@@ -32,11 +31,11 @@ class AuthenticationTest extends TestCase
     public function test_user_cant_register_with_invalid_data(): void
     {
         $this->postJson('/api/register', [
-            'name'     => 'John Doe',
-            'email'    => 'johndoe@wellnesslog.test',
-            'password' => 'password',
-        ])
-            ->assertStatus(422);
+            'name'                  => 'John Doe',
+            'email'                 => 'johndoe@wellnesslog.test',
+            'password'              => 'password',
+            'password_confirmation' => 'wrong_password',
+        ])->assertStatus(422);
 
         $this->assertDatabaseMissing('users', [
             'name'  => 'John Doe',
@@ -46,14 +45,12 @@ class AuthenticationTest extends TestCase
 
     public function test_user_can_login_with_valid_data(): void
     {
-        User::factory()->create([
-            'name'     => 'John Doe',
-            'email'    => 'johndoe@wellnesslog.test',
+        $user = User::factory()->create([
             'password' => 'password',
         ]);
 
         $this->postJson('/api/login', [
-            'email'    => 'johndoe@wellnesslog.test',
+            'email'    => $user->email,
             'password' => 'password',
         ])->assertStatus(200)
             ->assertExactJsonStructure(['token']);
@@ -61,14 +58,12 @@ class AuthenticationTest extends TestCase
 
     public function test_user_cant_login_with_invalid_data(): void
     {
-        User::factory()->create([
-            'name'     => 'John Doe',
-            'email'    => 'johndoe@wellnesslog.test',
+        $user = User::factory()->create([
             'password' => 'password',
         ]);
 
         $this->postJson('/api/login', [
-            'email'    => 'johndoe@wellnesslog.test',
+            'email'    => $user->email,
             'password' => 'pass',
         ])->assertStatus(401)
             ->assertExactJson(['message' => 'Invalid credentials.']);
@@ -77,9 +72,9 @@ class AuthenticationTest extends TestCase
     public function test_user_can_get_profile_data(): void
     {
         $user = User::factory()->create();
-        $token = $user->createToken('test')->plainTextToken;
 
-        $this->withToken($token)->getJson('/api/me')
+        $this->actingAs($user)
+            ->getJson('/api/me')
             ->assertStatus(200)
             ->assertExactJsonStructure([
                 'id',
