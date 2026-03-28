@@ -16,8 +16,8 @@ class GetDailyEntryRequest extends FormRequest
     public function rules(): array
     {
         $rules = [
-            'date_from' => ['sometimes', 'date'],
-            'date_to'   => ['sometimes', 'date'],
+            'date_from' => ['sometimes', 'date_format:Y-m-d'],
+            'date_to'   => ['sometimes', 'date_format:Y-m-d'],
         ];
 
         if ($this->has('date_to')) {

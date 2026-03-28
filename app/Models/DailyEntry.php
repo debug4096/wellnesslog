@@ -34,7 +34,7 @@ class DailyEntry extends Model
     protected function casts(): array
     {
         return [
-            'date'         => 'date',
+            'date'         => 'date:Y-m-d',
             'mood_level'   => MoodLevel::class,
             'energy_level' => EnergyLevel::class,
         ];
