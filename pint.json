@@ -24,6 +24,9 @@
             "operators": {
                 "=>": "align_single_space_minimal"
             }
+        },
+        "concat_space": {
+            "spacing": "one"
         }
     }
 }
