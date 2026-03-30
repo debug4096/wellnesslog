@@ -39,9 +39,10 @@ class Medication extends Model
     protected function casts(): array
     {
         return [
-            'dosage'    => 'decimal:3',
-            'unit'      => MedicationUnit::class,
-            'frequency' => MedicationFrequency::class,
+            'dosage'        => 'decimal:3',
+            'unit'          => MedicationUnit::class,
+            'frequency'     => MedicationFrequency::class,
+            'reminder_time' => 'datetime:H:i',
         ];
     }
 }
