@@ -19,7 +19,7 @@ class StoreMedicationLogRequest extends FormRequest
             'taken_at' => [
                 'required',
                 'date',
-                'before_or_equal:today',
+                'before_or_equal:now',
             ],
             'dosage' => ['sometimes', 'numeric', 'min:0.001', 'max:999.999'],
             'notes'  => ['sometimes', 'string', 'max:5000'],
