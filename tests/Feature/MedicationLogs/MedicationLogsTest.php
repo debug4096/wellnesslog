@@ -58,4 +58,44 @@ class MedicationLogsTest extends TestCase
             ->assertStatus(200)
             ->assertJsonCount(5, 'data');
     }
+
+    public function test_user_cant_create_log_for_other_user_medication(): void
+    {
+        $userOne = User::factory()->create();
+        $userTwo = User::factory()->create();
+        $medicationTwo = Medication::factory()->create(['user_id' => $userTwo->id]);
+
+        $this->actingAs($userOne)->postJson("/api/medications/{$medicationTwo->id}/logs", [
+            'taken_at' => now()->format('Y-m-d H:i:s'),
+            'dosage'   => 0.125,
+            'notes'    => 'test note',
+        ])->assertStatus(403);
+
+        $this->assertDatabaseCount('medication_logs', 0);
+    }
+
+    public function test_user_cant_view_other_medication_log(): void
+    {
+        $userOne = User::factory()->create();
+        $userTwo = User::factory()->create();
+
+        $medicationTwo = Medication::factory()->create(['user_id' => $userTwo->id]);
+
+        $this->actingAs($userOne)->getJson("/api/medications/{$medicationTwo->id}/logs")
+            ->assertStatus(403);
+    }
+
+    public function test_user_cant_create_medication_log_with_invalid_data(): void
+    {
+        $user = User::factory()->create();
+        $medication = Medication::factory()->create(['user_id' => $user->id]);
+
+        $this->actingAs($user)->postJson("/api/medications/{$medication->id}/logs", [
+            'taken_at' => now()->format('Y-m-d H:i:s'),
+            'dosage'   => -0.125,
+            'notes'    => 'test note',
+        ])->assertStatus(422);
+
+        $this->assertDatabaseCount('medication_logs', 0);
+    }
 }
