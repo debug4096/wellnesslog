@@ -16,8 +16,8 @@ class StatisticsService implements StatisticsServiceInterface
     public function getStatisticsForPeriod(User $user, ?string $dateFrom, ?string $dateTo): array
     {
         $query = $user->dailyEntries()
-            ->when($dateFrom, fn ($query, $date) => $query->where('entry_date', '>=', $date))
-            ->when($dateTo, fn ($query, $date) => $query->where('entry_date', '<=', $date));
+            ->when($dateFrom, fn ($query, $date) => $query->where('date', '>=', $date))
+            ->when($dateTo, fn ($query, $date) => $query->where('date', '<=', $date));
 
         return [
             'median_mood_level'    => $this->calcMedianValue(clone $query, 'mood_level'),
@@ -31,6 +31,7 @@ class StatisticsService implements StatisticsServiceInterface
         $values = $query
             ->whereNotNull($column)
             ->orderBy($column)
+            ->toBase()
             ->pluck($column);
 
         if ($values->isEmpty()) {
