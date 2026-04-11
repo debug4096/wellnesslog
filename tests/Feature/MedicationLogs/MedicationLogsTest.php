@@ -17,7 +17,7 @@ class MedicationLogsTest extends TestCase
     public function test_user_can_create_medication_log(): void
     {
         $user = User::factory()->create();
-        $medication = Medication::factory()->create(['user_id' => $user->id]);
+        $medication = Medication::factory()->for($user)->create();
 
         $data = [
             'taken_at' => now()->format('Y-m-d H:i:s'),
@@ -47,12 +47,12 @@ class MedicationLogsTest extends TestCase
     public function test_user_can_view_own_medication_log(): void
     {
         $userOne = User::factory()->create();
-        $medicationOne = Medication::factory()->create(['user_id' => $userOne->id]);
-        MedicationLog::factory()->count(5)->create(['medication_id' => $medicationOne->id]);
+        $medicationOne = Medication::factory()->for($userOne)->create();
+        MedicationLog::factory()->count(5)->for($medicationOne)->create();
 
         $userTwo = User::factory()->create();
-        $medicationTwo = Medication::factory()->create(['user_id' => $userTwo->id]);
-        MedicationLog::factory()->count(3)->create(['medication_id' => $medicationTwo->id]);
+        $medicationTwo = Medication::factory()->for($userTwo)->create();
+        MedicationLog::factory()->count(3)->for($medicationTwo)->create();
 
         $this->actingAs($userOne)->getJson("/api/medications/{$medicationOne->id}/logs")
             ->assertStatus(200)
@@ -63,7 +63,7 @@ class MedicationLogsTest extends TestCase
     {
         $userOne = User::factory()->create();
         $userTwo = User::factory()->create();
-        $medicationTwo = Medication::factory()->create(['user_id' => $userTwo->id]);
+        $medicationTwo = Medication::factory()->for($userTwo)->create();
 
         $this->actingAs($userOne)->postJson("/api/medications/{$medicationTwo->id}/logs", [
             'taken_at' => now()->format('Y-m-d H:i:s'),
@@ -79,7 +79,7 @@ class MedicationLogsTest extends TestCase
         $userOne = User::factory()->create();
         $userTwo = User::factory()->create();
 
-        $medicationTwo = Medication::factory()->create(['user_id' => $userTwo->id]);
+        $medicationTwo = Medication::factory()->for($userTwo)->create();
 
         $this->actingAs($userOne)->getJson("/api/medications/{$medicationTwo->id}/logs")
             ->assertStatus(403);
@@ -88,7 +88,7 @@ class MedicationLogsTest extends TestCase
     public function test_user_cant_create_medication_log_with_invalid_data(): void
     {
         $user = User::factory()->create();
-        $medication = Medication::factory()->create(['user_id' => $user->id]);
+        $medication = Medication::factory()->for($user)->create();
 
         $this->actingAs($user)->postJson("/api/medications/{$medication->id}/logs", [
             'taken_at' => now()->format('Y-m-d H:i:s'),

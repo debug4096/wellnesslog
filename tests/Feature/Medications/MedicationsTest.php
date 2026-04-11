@@ -39,7 +39,7 @@ class MedicationsTest extends TestCase
     public function test_medication_soft_delete(): void
     {
         $user = User::factory()->create();
-        $medication = Medication::factory()->create(['user_id' => $user->id]);
+        $medication = Medication::factory()->for($user)->create();
 
         $this->actingAs($user)
             ->deleteJson("/api/medications/{$medication->id}")
@@ -53,8 +53,8 @@ class MedicationsTest extends TestCase
         $userOne = User::factory()->create();
         $userTwo = User::factory()->create();
 
-        $medication = Medication::factory()->create(['user_id' => $userOne->id]);
-        Medication::factory()->count(10)->create(['user_id' => $userTwo->id]);
+        $medication = Medication::factory()->for($userOne)->create();
+        Medication::factory()->count(10)->for($userTwo)->create();
 
         $this->actingAs($userOne)->getJson('/api/medications')
             ->assertStatus(200)
@@ -65,7 +65,7 @@ class MedicationsTest extends TestCase
     public function test_user_can_update_own_medication(): void
     {
         $user = User::factory()->create();
-        $medication = Medication::factory()->create(['user_id' => $user->id]);
+        $medication = Medication::factory()->for($user)->create();
 
         $this->actingAs($user)
             ->putJson("/api/medications/{$medication->id}", ['name' => 'Test medication'])
@@ -82,7 +82,7 @@ class MedicationsTest extends TestCase
         $userOne = User::factory()->create();
         $userTwo = User::factory()->create();
 
-        $medication = Medication::factory()->create(['user_id' => $userTwo->id]);
+        $medication = Medication::factory()->for($userTwo)->create();
 
         $this->actingAs($userOne)
             ->putJson("/api/medications/{$medication->id}", ['name' => 'Test medication'])

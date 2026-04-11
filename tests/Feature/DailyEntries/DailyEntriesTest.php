@@ -50,7 +50,7 @@ class DailyEntriesTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $dailyEntry = DailyEntry::factory()->create(['user_id' => $user->id]);
+        $dailyEntry = DailyEntry::factory()->for($user)->create();
         DailyEntry::factory()->count(10)->create();
 
         $this->actingAs($user)->getJson('/api/entries')
@@ -62,7 +62,7 @@ class DailyEntriesTest extends TestCase
     public function test_user_can_update_their_own_entry(): void
     {
         $user = User::factory()->create();
-        $dailyEntry = DailyEntry::factory()->create(['user_id' => $user->id]);
+        $dailyEntry = DailyEntry::factory()->for($user)->create();
 
         $this->actingAs($user)->putJson('/api/entries/' . $dailyEntry->id, [
             'notes' => 'updated note',
@@ -83,14 +83,13 @@ class DailyEntriesTest extends TestCase
     {
         $user = User::factory()->create();
 
-        DailyEntry::factory()->create([
-            'user_id' => $user->id,
-            'date'    => now()->format('Y-m-d'),
+        DailyEntry::factory()->for($user)->create([
+            'date' => now()->format('Y-m-d'),
         ]);
 
-        DailyEntry::factory()->count(10)->sequence(
-            fn (Sequence $sequence) => ['date' => now()->subDays($sequence->index + 1)->format('Y-m-d')],
-        )->create(['user_id' => $user->id]);
+        DailyEntry::factory()->count(10)->for($user)
+            ->sequence(fn (Sequence $sequence) => ['date' => now()->subDays($sequence->index + 1)->format('Y-m-d')],
+            )->create();
 
         $this->actingAs($user)->getJson(
             '/api/entries?' . http_build_query([
