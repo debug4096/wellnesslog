@@ -72,4 +72,21 @@ class StatisticsTest extends TestCase
             ->assertJsonPath('data.median_energy_level', 6)
             ->assertJsonPath('data.median_sleep_minutes', 420);
     }
+
+    public function test_user_can_get_statistics_with_empty_data(): void
+    {
+        $user = User::factory()->create();
+
+        $this->actingAs($user)->getJson('api/statistics')
+            ->assertStatus(200)
+            ->assertJsonPath('data.median_mood_level', 0)
+            ->assertJsonPath('data.median_energy_level', 0)
+            ->assertJsonPath('data.median_sleep_minutes', 0);
+    }
+
+    public function test_user_cant_get_access_without_authentication(): void
+    {
+        $this->getJson('api/statistics')
+            ->assertStatus(401);
+    }
 }
