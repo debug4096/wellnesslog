@@ -23,6 +23,7 @@ class UpdateDailyEntryRequest extends FormRequest
             'date' => [
                 'sometimes',
                 'date',
+                'before_or_equal:today',
                 Rule::unique('daily_entries')
                     ->where('user_id', $this->user()->id)
                     ->ignore($this->route('entry')->id),
