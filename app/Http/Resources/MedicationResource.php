@@ -21,7 +21,7 @@ class MedicationResource extends JsonResource
             'dosage'        => $this->dosage,
             'unit'          => $this->unit->value,
             'frequency'     => $this->frequency->value,
-            'reminder_time' => $this->reminder_time->format('H:i'),
+            'reminder_time' => $this->reminder_time?->format('H:i'),
             'is_archived'   => $this->trashed(),
             'created_at'    => $this->created_at->toISOString(),
             'updated_at'    => $this->updated_at->toISOString(),
