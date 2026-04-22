@@ -74,4 +74,4 @@ php artisan test
 
 ## License
 
-MIT
+This project is open-sourced under the [MIT license](LICENSE).
