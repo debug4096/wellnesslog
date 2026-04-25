@@ -1,4 +1,11 @@
 # WellnessLog
+
+<p align="center">
+<a href="https://www.php.net"><img src="https://img.shields.io/badge/PHP-8.2+-777BB4?logo=php&logoColor=white" alt="PHP Version"></a>
+<a href="https://laravel.com"><img src="https://img.shields.io/badge/Laravel-12.x-FF2D20?logo=laravel&logoColor=white" alt="Laravel Version"></a>
+<a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-green" alt="License"></a>
+</p>
+
 Mental health and wellness tracking REST API built with Laravel 12
 
 ## Tech Stack
