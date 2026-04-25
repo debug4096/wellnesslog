@@ -1,0 +1,64 @@
+# Environment
+.env
+.env.*
+!.env.example
+
+# Git
+/.git
+.gitignore
+.gitattributes
+
+# Docker
+/docker
+docker-compose.yml
+docker-compose.*.yml
+
+# Dependencies
+/vendor
+/node_modules
+
+# Laravel runtime (preserve .gitignore placeholders)
+/storage/*.key
+/storage/logs/*
+!/storage/logs/.gitignore
+/storage/framework/cache/*
+!/storage/framework/cache/.gitignore
+/storage/framework/sessions/*
+!/storage/framework/sessions/.gitignore
+/storage/framework/views/*
+!/storage/framework/views/.gitignore
+/storage/debugbar
+/bootstrap/cache/*.php
+
+# Public build artifacts
+/public/hot
+/public/storage
+/public/build
+
+# Frontend (REST API project, not used)
+package.json
+package-lock.json
+vite.config.js
+
+# IDE / OS
+/.idea
+/.vscode
+.DS_Store
+Thumbs.db
+
+# Tools cache
+.phpunit.cache
+.phpunit.result.cache
+.php-cs-fixer.cache
+.phpstan.cache
+.pint.cache
+
+# CI
+/.github
+
+# Docs
+README.md
+README.*
+CHANGELOG.md
+LICENSE
+LICENSE.md
