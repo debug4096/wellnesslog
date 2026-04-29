@@ -9,9 +9,10 @@
 .gitattributes
 
 # Docker
-/docker
 docker-compose.yml
 docker-compose.*.yml
+compose.yaml
+compose.*.yaml
 
 # Dependencies
 /vendor
