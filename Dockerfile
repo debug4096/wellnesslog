@@ -56,6 +56,8 @@ CMD ["php-fpm"]
 
 FROM base AS prod
 
+USER ${USER_NAME}
+
 COPY --chown=${USER_NAME}:${USER_NAME} composer.json composer.lock ./
 
 RUN composer install \
@@ -69,8 +71,6 @@ COPY --chown=${USER_NAME}:${USER_NAME} . .
 
 RUN composer dump-autoload --optimize --no-dev \
     && chmod -R 775 storage bootstrap/cache
-
-USER ${USER_NAME}
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
     CMD php -r "exit(file_get_contents('http://127.0.0.1:9000/ping') === 'pong' ? 0 : 1);" || exit 1
