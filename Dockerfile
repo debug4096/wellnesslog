@@ -13,8 +13,8 @@ RUN apk add --no-cache \
         icu-dev \
         libzip-dev \
         oniguruma-dev \
-        linux-headers \
     && apk add --no-cache --virtual .build-deps \
+        linux-headers \
         autoconf \
         g++ \
         make \
