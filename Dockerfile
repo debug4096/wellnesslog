@@ -30,7 +30,7 @@ RUN apk add --no-cache \
     && apk del .build-deps \
     && rm -rf /tmp/pear
 
-COPY --from=composer:2.7 /usr/bin/composer /usr/bin/composer
+COPY --from=composer:2.8 /usr/bin/composer /usr/bin/composer
 
 RUN addgroup -g ${GID} -S ${USER_NAME} \
     && adduser -u ${UID} -S -G ${USER_NAME} ${USER_NAME}
