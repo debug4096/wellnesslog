@@ -43,6 +43,10 @@ jobs:
     name: PHPUnit Tests
     runs-on: ubuntu-latest
 
+    env:
+      REDIS_HOST: 127.0.0.1
+      REDIS_PORT: 6379
+
     services:
       redis:
         image: redis:7-alpine
