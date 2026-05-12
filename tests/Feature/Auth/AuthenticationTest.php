@@ -6,11 +6,13 @@ namespace Tests\Feature\Auth;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\Concerns\WithoutRateLimiting;
 use Tests\TestCase;
 
 class AuthenticationTest extends TestCase
 {
     use RefreshDatabase;
+    use WithoutRateLimiting;
 
     public function test_user_can_register_with_valid_data(): void
     {
