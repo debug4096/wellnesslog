@@ -22,7 +22,10 @@ class AuthenticationTest extends TestCase
             'password'              => 'password',
             'password_confirmation' => 'password',
         ])->assertStatus(201)
-            ->assertExactJsonStructure(['token']);
+            ->assertExactJsonStructure([
+                'user',
+                'token',
+            ]);
 
         $this->assertDatabaseHas('users', [
             'name'  => 'John Doe',
@@ -55,7 +58,10 @@ class AuthenticationTest extends TestCase
             'email'    => $user->email,
             'password' => 'password',
         ])->assertStatus(200)
-            ->assertExactJsonStructure(['token']);
+            ->assertExactJsonStructure([
+                'user',
+                'token',
+            ]);
     }
 
     public function test_user_cant_login_with_invalid_data(): void
@@ -79,13 +85,11 @@ class AuthenticationTest extends TestCase
             ->getJson('/api/me')
             ->assertStatus(200)
             ->assertExactJsonStructure([
-                'id',
-                'name',
-                'email',
-                'email_verified_at',
-                'timezone',
-                'created_at',
-                'updated_at',
+                'data' => [
+                    'id',
+                    'name',
+                    'email',
+                ],
             ]);
     }
 
