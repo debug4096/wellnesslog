@@ -29,6 +29,7 @@ compose.*.yaml
 /storage/framework/views/*
 !/storage/framework/views/.gitignore
 /storage/debugbar
+/storage/api-docs
 /bootstrap/cache/*.php
 
 # Public build artifacts
@@ -40,6 +41,7 @@ compose.*.yaml
 package.json
 package-lock.json
 vite.config.js
+/.vite
 
 # IDE / OS
 /.idea
