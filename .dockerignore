@@ -29,6 +29,7 @@ compose.*.yaml
 /storage/framework/views/*
 !/storage/framework/views/.gitignore
 /storage/debugbar
+/storage/api-docs
 /bootstrap/cache/*.php
 
 # Public build artifacts
