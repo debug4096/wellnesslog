@@ -40,6 +40,7 @@ compose.*.yaml
 package.json
 package-lock.json
 vite.config.js
+/.vite
 
 # IDE / OS
 /.idea
