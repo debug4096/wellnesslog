@@ -1,8 +1,10 @@
 <?php
 
 declare(strict_types=1);
+use App\Providers\AppServiceProvider;
+use App\Providers\WellnessServiceProvider;
 
 return [
-    App\Providers\AppServiceProvider::class,
-    App\Providers\WellnessServiceProvider::class,
+    AppServiceProvider::class,
+    WellnessServiceProvider::class,
 ];
