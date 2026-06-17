@@ -109,4 +109,4 @@ jobs:
           tools: composer:v2
 
       - name: Audit composer dependencies
-        run: composer audit
+        run: composer audit --locked
