@@ -40,14 +40,14 @@ use OpenApi\Attributes as OA;
                     type: 'string',
                     format: 'date',
                     example: '2026-05-01',
-                    nullable: true
+                    nullable: true,
                 ),
                 new OA\Property(
                     property: 'date_to',
                     type: 'string',
                     format: 'date',
                     example: '2026-05-31',
-                    nullable: true
+                    nullable: true,
                 ),
             ],
             type: 'object',
